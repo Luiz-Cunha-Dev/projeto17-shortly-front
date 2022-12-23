@@ -23,5 +23,4 @@ font-size: 36px;
 line-height: 45px;
 text-align: center;
 color: #000000;
-margin-top: 82px;
 `

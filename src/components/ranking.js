@@ -43,12 +43,13 @@ export default function Ranking(){
   width: 1017px;
   margin-top:95px;
   padding-left: 40px;
-  padding-top: 19px;
+  padding-top: 6px;
   padding-bottom: 30px;
   background: #FFFFFF;
 border: 1px solid rgba(120, 177, 89, 0.25);
 box-shadow: 0px 4px 24px rgba(120, 177, 89, 0.12);
 border-radius: 24px 24px 0px 0px;
+margin-bottom: 82px;
   p{
     font-family: 'Lexend Deca';
 font-style: normal;
@@ -56,7 +57,7 @@ font-weight: 500;
 font-size: 22px;
 line-height: 28px;
 color: #000000;
-
+margin-top: 13px;
   }
   `
     const TitleStyle = styled.div`

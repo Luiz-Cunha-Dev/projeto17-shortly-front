@@ -93,7 +93,7 @@ return
         <input type="text" placeholder="Links que cabem no bolso" value={url} onChange={e => url === "" ? setUrl(`https://${e.target.value}`) : setUrl(e.target.value)}/>
         <button onClick={sendUrl}>{button}</button>
       </InsertLink>
-      {shortenedUrls.map((d, i) => <CreatedLink key={i} url={d.url} shortenedUrl={d.shortUrl} visitCount={d.visitCount} deleteFunction={() => deleteUrl(d.id)}/>)}
+      {shortenedUrls.map((d, i) => <CreatedLink link={`https://api-shortly-p881.onrender.com/urls/open/${d.shortUrl}`} key={i} url={d.url} shortenedUrl={d.shortUrl} visitCount={d.visitCount} deleteFunction={() => deleteUrl(d.id)}/>)}
     </>
   );
 }
@@ -101,7 +101,9 @@ return
 function CreatedLink(props) {
   return (
     <ShortenedLinks>
+      <a href={props.link}>
       <div><span>{props.url}</span><span>{props.shortenedUrl}</span><span>Quantidade de visitantes: {props.visitCount}</span></div>
+      </a>
       <button onClick={props.deleteFunction}><img src={trash} alt="trash" /></button>
     </ShortenedLinks>
   )
@@ -167,6 +169,10 @@ font-weight: 400;
 font-size: 14px;
 line-height: 18px;
 color: #FFFFFF;
+}
+span:nth-child(1){
+width: 200px;
+overflow: hidden;
 }
 button{
   cursor: pointer;
