@@ -1,7 +1,25 @@
 import styled from "styled-components";
 import cup from "../img/cup.png"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Ranking(){
+
+  const [rankingList, setRankingList] = useState([])
+
+  useEffect(() => {
+    const URL = "https://api-shortly-p881.onrender.com/ranking"
+
+    axios.get(URL)
+      .then(res => {
+        setRankingList(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+        alert(err.response.data)
+      })
+  }, [])
+
     return (
         <Window>
     <TitleStyle>
@@ -9,7 +27,7 @@ export default function Ranking(){
        <span>Ranking</span> 
     </TitleStyle>
   <RankingStyle>
-    <p>1. Fulaninha - 32 links - 1.703.584 visualizações</p>
+    {rankingList.map((d, i) => <p>{i+1}. {d.name} - {d.linksCount} links - {d.visitCount} visualizações</p>)}
   </RankingStyle>
     </Window>
     )
@@ -25,6 +43,8 @@ export default function Ranking(){
   width: 1017px;
   margin-top:95px;
   padding-left: 40px;
+  padding-top: 19px;
+  padding-bottom: 30px;
   background: #FFFFFF;
 border: 1px solid rgba(120, 177, 89, 0.25);
 box-shadow: 0px 4px 24px rgba(120, 177, 89, 0.12);
@@ -54,6 +74,6 @@ line-height: 45px;
 color: #000000;
     }
     img{
-      width: 102px;
+      margin-right: 10px;
     }
     `

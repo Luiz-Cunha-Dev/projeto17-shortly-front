@@ -1,30 +1,48 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function InitialHeader() {
-    return (
-  <HeaderStyle>
-    <span>Seja bem-vindo(a), Pessoa!</span>
-    <div>
-    <Link to="/inicio">
-    <span>Home</span>
-    </Link>
-    <Link to="/ranking">
-    <span>Ranking</span>
-    </Link>
-    <Link to="/">
-    <span>Sair</span>
-    </Link>
-    </div>
-  </HeaderStyle>
-    );
+export default function UserHeader(props) {
+
+  const navigate = useNavigate()
+
+  function logout() {
+    if (!window.confirm("Tem certeza que deseja deslogar?")) {
+      return
+    }
+
+    const URL = "https://api-shortly-p881.onrender.com/logout"
+
+    axios.delete(URL, props.config)
+      .then(res => {
+        console.log(res);
+        localStorage.removeItem("localToken");
+        navigate("/")
+      })
+      .catch(err => {
+        console.log(err);
+        alert(err.response.data)
+      })
   }
-  
 
-  const HeaderStyle = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
+  return (
+    <HeaderStyle>
+      <span>Seja bem-vindo(a), {props.name}!</span>
+      <div>
+        <Link to="/inicio">
+          <span>Home</span>
+        </Link>
+        <Link to="/ranking">
+          <span>Ranking</span>
+        </Link>
+          <span onClick={logout}>Sair</span>
+      </div>
+    </HeaderStyle>
+  );
+}
+
+
+const HeaderStyle = styled.div`
   width: 100%;
   height: 78px;
   display: flex;
@@ -39,9 +57,10 @@ font-size: 14px;
 line-height: 18px;
 color: #5D9040;
 margin-left: 22px;
+margin-right: 55%;
+cursor: pointer;
   }
   div{
     display: flex;
-    flex-direction: column;
   }
   `
